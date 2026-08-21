@@ -1,0 +1,112 @@
+[build-system]
+requires = ["setuptools>=64.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btsensors"
+version = "0.1.0"
+license = { text = "Apache-2.0" }
+description = "Custom Home Assistant integration for BLE sensor/controller devices discovered via Bluetooth proxies, with a pluggable per-vendor parser registry and raw-capture fallback for unidentified devices."
+authors = [{ name = "trooperthorn" }]
+maintainers = [{ name = "trooperthorn" }]
+readme = "README.md"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3",
+  "Topic :: Home Automation",
+]
+keywords = [
+  "custom component",
+  "custom integration",
+  "hacs",
+  "home-assistant",
+  "home-assistant-custom-component",
+  "homeassistant",
+  "integration",
+  "bluetooth",
+  "ble",
+  "govee",
+  "switchbot",
+]
+requires-python = ">=3.13"
+
+dependencies = ["govee-ble==1.4.0", "PySwitchbot==2.4.1", "sensor-state-data==2.20.0"]
+
+[project.urls]
+Documentation = "https://github.com/trooperthorn/ha_int_btsensors"
+Changelog = "https://github.com/trooperthorn/ha_int_btsensors/releases"
+Issues = "https://github.com/trooperthorn/ha_int_btsensors/issues"
+Repository = "https://github.com/trooperthorn/ha_int_btsensors"
+
+[project.optional-dependencies]
+dev = [
+  "mypy==1.15.0",
+  "ruff==0.9.7",
+  "pytest>=7.0.0",
+  "pytest-cov",
+  "pytest-mock",
+  "pytest-asyncio",
+  "homeassistant==2025.10.0",
+  # Don't pin versions below, they will follow HA's versions
+  "homeassistant-stubs",
+  "pytest-homeassistant-custom-component",
+]
+
+[tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=custom_components/btsensors --cov-report=term-missing --cov-report=html"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+src = ["custom_components/btsensors"]
+
+[tool.ruff.lint]
+ignore = [
+  "A005",
+  "ANN401",
+  "D100",
+  "D101",
+  "D102",
+  "D103",
+  "D104",
+  "D105",
+  "D107",
+  "D203",
+  "D213",
+  "RUF012",
+  "TID252",
+  "COM812",
+  "COM819",
+  "D206",
+  "E501",
+  "ISC001",
+  "Q000",
+  "Q001",
+  "Q002",
+  "Q003",
+  "W191",
+]
+select = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "PLR2004"]
+
+[tool.ruff.lint.flake8-import-conventions.extend-aliases]
+"homeassistant.helpers.area_registry" = "ar"
+"homeassistant.helpers.config_validation" = "cv"
+"homeassistant.helpers.device_registry" = "dr"
+"homeassistant.helpers.entity_registry" = "er"
+"homeassistant.helpers.issue_registry" = "ir"
+voluptuous = "vol"
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components"]
+known-third-party = ["homeassistant"]
+combine-as-imports = true

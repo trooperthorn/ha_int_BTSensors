@@ -1,0 +1,108 @@
+# Home Assistant quality scale tracking for the BLE Sensors integration.
+# https://developers.home-assistant.io/docs/core/integration-quality-scale/
+#
+# This is an honest snapshot of a freshly scaffolded integration, not an
+# aspirational claim: most Silver/Gold/Platinum rules are still "todo".
+# Update a rule to "done" only once it is actually implemented and, where
+# applicable, covered by a test -- see tests/test_parsers.py for the start
+# of that coverage.
+rules:
+  # Bronze
+  action-setup:
+    status: exempt
+    comment: No custom actions/services are defined yet.
+  appropriate-polling:
+    status: exempt
+    comment: Passive BLE advertisement integration; not polled.
+  brands: todo
+  common-modules: done
+  config-flow-test-coverage: todo
+  config-flow: done
+  dependency-transparency: done
+  docs-actions:
+    status: exempt
+    comment: No custom actions are defined yet.
+  docs-conditions:
+    status: exempt
+    comment: No conditions defined.
+  docs-high-level-description: todo
+  docs-installation-instructions: todo
+  docs-removal-instructions: todo
+  docs-triggers:
+    status: exempt
+    comment: No triggers defined.
+  entity-event-setup:
+    status: exempt
+    comment: No explicit event subscriptions.
+  entity-unique-id: done
+  has-entity-name: done
+  runtime-data: done
+  test-before-configure:
+    status: todo
+    comment: Bluetooth discovery already validates reachability; manual/user step does not yet.
+  test-before-setup:
+    status: exempt
+    comment: Device is expected to be offline/out of range most of the time.
+  unique-config-entry: done
+  # Silver
+  action-exceptions:
+    status: exempt
+    comment: No custom actions are defined yet.
+  config-entry-unloading: done
+  docs-configuration-parameters: todo
+  docs-installation-parameters: todo
+  entity-unavailable: todo
+  integration-owner: done
+  log-when-unavailable:
+    status: done
+    comment: Handled by PassiveBluetoothProcessorCoordinator.
+  parallel-updates: todo
+  reauthentication-flow:
+    status: exempt
+    comment: No authentication required.
+  test-coverage: todo
+  # Gold
+  devices: done
+  diagnostics: done
+  discovery-update-info:
+    status: exempt
+    comment: No IP discovery.
+  discovery:
+    status: done
+    comment: Bluetooth discovery via manifest matchers.
+  docs-data-update: todo
+  docs-examples: todo
+  docs-known-limitations: todo
+  docs-supported-devices: todo
+  docs-supported-functions: todo
+  docs-troubleshooting: todo
+  docs-use-cases: todo
+  dynamic-devices:
+    status: exempt
+    comment: Device type integration; one entry per physical device.
+  entity-category: done
+  entity-device-class: done
+  entity-disabled-by-default:
+    status: todo
+    comment: Raw-capture diagnostic fields from generic_raw.py may be noisy and should default disabled.
+  entity-translations: todo
+  exception-translations:
+    status: todo
+    comment: light.py's protocol-unconfirmed error is not yet translated.
+  icon-translations: todo
+  reconfiguration-flow:
+    status: exempt
+    comment: Only parameter (MAC = unique_id) would require a new config entry.
+  repair-issues:
+    status: exempt
+    comment: No repairs/issues defined yet.
+  stale-devices:
+    status: exempt
+    comment: Device type integration.
+
+  # Platinum
+  async-dependency: done
+  inject-websession:
+    status: exempt
+    comment: Bluetooth connection, not a web session.
+  strict-typing: todo

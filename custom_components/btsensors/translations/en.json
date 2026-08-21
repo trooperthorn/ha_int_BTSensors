@@ -1,0 +1,23 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]",
+      "already_in_progress": "[%key:common::config_flow::abort::already_in_progress%]",
+      "no_devices_found": "[%key:common::config_flow::abort::no_devices_found%]"
+    },
+    "flow_title": "{name}",
+    "step": {
+      "bluetooth_confirm": {
+        "title": "Add BLE device",
+        "description": "Add {name} as a {detected_type}?"
+      },
+      "user": {
+        "title": "Add BLE device",
+        "data": {
+          "address": "Device"
+        },
+        "description": "Pick a Bluetooth device to add. Devices without a known decoder are still added with raw signal/data diagnostics so you can identify them."
+      }
+    }
+  }
+}
