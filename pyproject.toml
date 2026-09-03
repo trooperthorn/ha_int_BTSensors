@@ -49,6 +49,9 @@ dev = [
   "pytest-mock",
   "pytest-asyncio",
   "homeassistant==2026.9.0",
+  # Transitive import of homeassistant.components.usb; see docs/operations.md.
+  "aiousbwatcher==1.1.2",
+  "serialx==1.9.0",
   # Don't pin versions below, they will follow HA's versions
   "homeassistant-stubs",
   "pytest-homeassistant-custom-component",

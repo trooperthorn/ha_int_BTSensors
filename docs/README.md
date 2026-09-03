@@ -15,3 +15,5 @@
   alternatives.
 - [backlog.md](backlog.md): dated TODO entries moved out of code
   comments.
+- [operations.md](operations.md): test environment setup and the
+  transitive dependency pins it requires.
