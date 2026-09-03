@@ -1,9 +1,6 @@
 {
   "domain": "btsensors",
   "name": "BLE Sensors",
-  "codeowners": ["@trooperthorn"],
-  "config_flow": true,
-  "dependencies": ["bluetooth_adapters"],
   "bluetooth": [
     {
       "service_uuid": "0000ec88-0000-1000-8000-00805f9b34fb",
@@ -26,6 +23,9 @@
       "connectable": true
     }
   ],
+  "codeowners": ["@trooperthorn"],
+  "config_flow": true,
+  "dependencies": ["bluetooth_adapters"],
   "documentation": "https://github.com/trooperthorn/ha_int_btsensors",
   "integration_type": "device",
   "iot_class": "local_push",
