@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "btsensors"
-version = "0.1.0"
+version = "2026.09.03.1"
 license = { text = "Apache-2.0" }
 description = "Custom Home Assistant integration for BLE sensor/controller devices discovered via Bluetooth proxies, with a pluggable per-vendor parser registry and raw-capture fallback for unidentified devices."
 authors = [{ name = "trooperthorn" }]
@@ -30,7 +30,7 @@ keywords = [
   "govee",
   "switchbot",
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 
 dependencies = ["govee-ble==1.4.0", "PySwitchbot==2.4.1", "sensor-state-data==2.20.0"]
 
@@ -48,7 +48,10 @@ dev = [
   "pytest-cov",
   "pytest-mock",
   "pytest-asyncio",
-  "homeassistant==2025.10.0",
+  "homeassistant==2026.9.0",
+  # Transitive import of homeassistant.components.usb; see docs/operations.md.
+  "aiousbwatcher==1.1.2",
+  "serialx==1.9.0",
   # Don't pin versions below, they will follow HA's versions
   "homeassistant-stubs",
   "pytest-homeassistant-custom-component",
@@ -56,6 +59,11 @@ dev = [
 
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:"]
+
+[[tool.mypy.overrides]]
+# PySwitchbot ships no py.typed marker and no stub package on PyPI.
+module = "switchbot"
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "--cov=custom_components/btsensors --cov-report=term-missing --cov-report=html"

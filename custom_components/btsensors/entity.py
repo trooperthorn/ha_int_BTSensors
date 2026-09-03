@@ -1,26 +1,26 @@
 """Shared helpers for turning a ParsedDevice into HA's passive-update shape.
 
-Both sensor.py and binary_sensor.py convert the coordinator's
-``ParsedDevice`` into a ``PassiveBluetoothDataUpdate`` and only keep the
-fields relevant to their entity domain (``binary`` flag decides
-sensor vs. binary_sensor). Since one config entry always represents
-exactly one physical device, every entity key uses ``device_id=None`` --
-there is nothing to disambiguate.
+See docs/design.md for why every entity key uses device_id=None.
 """
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from typing import TYPE_CHECKING
 
 from homeassistant.components.bluetooth.passive_update_processor import (
     PassiveBluetoothDataUpdate,
     PassiveBluetoothEntityKey,
 )
 from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.entity import EntityDescription
 
 from .const import DOMAIN
-from .parsers.base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    from homeassistant.helpers.entity import EntityDescription
+
+    from .parsers.base import ParsedDevice, ParsedField
 
 
 def _device_info(parsed: ParsedDevice) -> DeviceInfo:

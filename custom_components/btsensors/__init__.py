@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 
 from homeassistant.const import CONF_ADDRESS, Platform
-from homeassistant.core import HomeAssistant
 
 from .const import CONF_PARSER_KEY
 from .coordinator import BTSensorsConfigEntry, BTSensorsCoordinator
 from .parsers.registry import create_parser
+
+if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
 
 PLATFORMS: list[Platform] = [Platform.BINARY_SENSOR, Platform.LIGHT, Platform.SENSOR]
 

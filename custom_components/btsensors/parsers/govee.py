@@ -1,21 +1,21 @@
 """Adapter around the `govee-ble` (Bluetooth-Devices) parser library.
 
-We deliberately do not reimplement Govee's advertisement format: the
-`sensor-state-data` ecosystem already maintains a well-tested decoder for
-the whole Govee thermometer/hygrometer family (H5074, H5075, H5100,
-H5101, H5104, H5105, H5106, H5108, H5109, H5179, H5183, H5184, H5185,
-H5198, H5199, ...). This module only adapts its output shape to our
-``ParsedDevice``.
+Adapts govee-ble's output shape to ParsedDevice; see docs/design.md for
+why decoding is not reimplemented here.
 """
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from govee_ble import GoveeBluetoothDeviceData
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
-from sensor_state_data import SensorUpdate
 
 from ..const import GOVEE_SERVICE_UUID, PARSER_GOVEE
 from .base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
+    from sensor_state_data import SensorUpdate
 
 
 class GoveeParser:

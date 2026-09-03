@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import override
+from typing import TYPE_CHECKING, override
 
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
@@ -13,13 +13,19 @@ from homeassistant.components.bluetooth.passive_update_processor import (
     PassiveBluetoothDataProcessor,
     PassiveBluetoothProcessorEntity,
 )
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .coordinator import BTSensorsConfigEntry
 from .entity import build_data_update
 from .parsers.base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from homeassistant.components.bluetooth.passive_update_processor import (
+        PassiveBluetoothDataUpdate,
+    )
+    from homeassistant.core import HomeAssistant
+    from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+
+    from .coordinator import BTSensorsConfigEntry
 
 # Only the device classes a parser (see parsers/*.py) actually sets.
 _DEVICE_CLASSES: dict[str, BinarySensorDeviceClass] = {
@@ -38,12 +44,12 @@ def _describe(field: ParsedField) -> BinarySensorEntityDescription:
     )
 
 
-def _binary_sensor_update(parsed: ParsedDevice):
+def _binary_sensor_update(parsed: ParsedDevice) -> PassiveBluetoothDataUpdate[object]:
     return build_data_update(parsed, want_binary=True, describe=_describe)
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+    _hass: HomeAssistant,
     entry: BTSensorsConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:

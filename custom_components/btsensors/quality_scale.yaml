@@ -1,11 +1,5 @@
-# Home Assistant quality scale tracking for the BLE Sensors integration.
-# https://developers.home-assistant.io/docs/core/integration-quality-scale/
-#
-# This is an honest snapshot of a freshly scaffolded integration, not an
-# aspirational claim: most Silver/Gold/Platinum rules are still "todo".
-# Update a rule to "done" only once it is actually implemented and, where
-# applicable, covered by a test -- see tests/test_parsers.py for the start
-# of that coverage.
+# Home Assistant quality scale tracking. See docs/decisions.md for the
+# honesty policy this file follows.
 rules:
   # Bronze
   action-setup:

@@ -1,13 +1,7 @@
 """Config flow for the BLE Sensors integration.
 
-Two entry points, mirroring HA core's own BLE integrations (e.g.
-govee_ble): automatic discovery via the manifest's ``bluetooth`` matchers
-(``async_step_bluetooth``), and a manual picker (``async_step_user``) for
-anything the passive scanner has seen. The manual picker deliberately
-lists *every* discovered device, not just manifest-matched ones -- that is
-what lets a user add a device with no known decoder (T-80, wSBR, ...) as a
-raw-capture entry to start reverse-engineering it, per this integration's
-"probe and sense every device" goal.
+Bluetooth discovery plus a manual picker listing every seen device,
+including ones with no known decoder; see docs/design.md.
 """
 
 from __future__ import annotations
@@ -21,10 +15,15 @@ from homeassistant.components.bluetooth import (
 )
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_ADDRESS
+from homeassistant.exceptions import HomeAssistantError
 import voluptuous as vol
 
 from .const import CONF_PARSER_KEY, DOMAIN
 from .parsers.registry import display_name_for, identify_parser_key
+
+_BLUETOOTH_CONFIRM_WITHOUT_DISCOVERY_MESSAGE = (
+    "async_step_bluetooth_confirm reached without a prior async_step_bluetooth call"
+)
 
 
 class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -52,8 +51,8 @@ class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
         """Confirm setup, showing what this integration detected the device as."""
-        assert self._discovery_info is not None
-        assert self._parser_key is not None
+        if self._discovery_info is None or self._parser_key is None:
+            raise HomeAssistantError(_BLUETOOTH_CONFIRM_WITHOUT_DISCOVERY_MESSAGE)
         discovery_info = self._discovery_info
         title = discovery_info.name or discovery_info.address
 
@@ -94,7 +93,7 @@ class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
 
         await bluetooth.async_request_active_scan(self.hass)
         current_addresses = self._async_current_ids(include_ignore=False)
-        for discovery_info in async_discovered_service_info(self.hass, False):
+        for discovery_info in async_discovered_service_info(self.hass, connectable=False):
             address = discovery_info.address
             if address in current_addresses or address in self._discovered_devices:
                 continue

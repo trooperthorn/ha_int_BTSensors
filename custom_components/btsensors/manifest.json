@@ -1,9 +1,6 @@
 {
   "domain": "btsensors",
   "name": "BLE Sensors",
-  "codeowners": ["@trooperthorn"],
-  "config_flow": true,
-  "dependencies": ["bluetooth_adapters"],
   "bluetooth": [
     {
       "service_uuid": "0000ec88-0000-1000-8000-00805f9b34fb",
@@ -26,11 +23,14 @@
       "connectable": true
     }
   ],
+  "codeowners": ["@trooperthorn"],
+  "config_flow": true,
+  "dependencies": ["bluetooth_adapters"],
   "documentation": "https://github.com/trooperthorn/ha_int_btsensors",
   "integration_type": "device",
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/trooperthorn/ha_int_btsensors/issues",
   "loggers": ["govee_ble", "switchbot", "btsensors"],
   "requirements": ["govee-ble==1.4.0", "PySwitchbot==2.4.1", "sensor-state-data==2.20.0"],
-  "version": "0.1.0"
+  "version": "2026.09.03.1"
 }

@@ -1,24 +1,18 @@
 """Fallback parser: always matches, exposes only raw/diagnostic data.
 
-This is what makes the "probe and sense every device" and "collect raw
-values to then map out values in updates" goals possible: any BLE
-advertisement this integration is configured to watch, but that no
-vendor-specific parser recognizes, still becomes a Home Assistant device
-with diagnostic entities showing exactly what was received. That lets a
-user (or contributor) correlate the raw bytes with a known ground truth
-(e.g. a real thermometer reading) and then write a real parser -- see
-``docs/adding_a_parser.md``.
-
-Because this parser's ``can_parse`` always returns True, it must be tried
-*last* in the registry -- see ``parsers/registry.py``.
+Must be tried last in the registry since can_parse() always returns True.
+See docs/design.md and docs/adding_a_parser.md.
 """
 
 from __future__ import annotations
 
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
+from typing import TYPE_CHECKING
 
 from ..const import PARSER_GENERIC_RAW
 from .base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 
 class GenericRawParser:
@@ -26,7 +20,7 @@ class GenericRawParser:
     display_name = "Unidentified BLE device (raw capture)"
 
     @classmethod
-    def can_parse(cls, service_info: BluetoothServiceInfoBleak) -> bool:
+    def can_parse(cls, _service_info: BluetoothServiceInfoBleak) -> bool:
         return True
 
     def parse(self, service_info: BluetoothServiceInfoBleak) -> ParsedDevice:
