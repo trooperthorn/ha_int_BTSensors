@@ -43,7 +43,7 @@ Repository = "https://github.com/trooperthorn/ha_int_btsensors"
 [project.optional-dependencies]
 dev = [
   "mypy==1.15.0",
-  "ruff==0.9.7",
+  "ruff==0.16.5",
   "pytest>=7.0.0",
   "pytest-cov",
   "pytest-mock",
