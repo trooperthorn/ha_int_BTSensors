@@ -1,13 +1,7 @@
 """Config flow for the BLE Sensors integration.
 
-Two entry points, mirroring HA core's own BLE integrations (e.g.
-govee_ble): automatic discovery via the manifest's ``bluetooth`` matchers
-(``async_step_bluetooth``), and a manual picker (``async_step_user``) for
-anything the passive scanner has seen. The manual picker deliberately
-lists *every* discovered device, not just manifest-matched ones -- that is
-what lets a user add a device with no known decoder (T-80, wSBR, ...) as a
-raw-capture entry to start reverse-engineering it, per this integration's
-"probe and sense every device" goal.
+Bluetooth discovery plus a manual picker listing every seen device,
+including ones with no known decoder; see docs/design.md.
 """
 
 from __future__ import annotations

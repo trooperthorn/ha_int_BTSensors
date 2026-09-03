@@ -1,15 +1,7 @@
 """Shared types for BLE advertisement parsers.
 
-Every parser turns a raw ``BluetoothServiceInfoBleak`` advertisement into a
-``ParsedDevice``: a vendor-agnostic bag of named fields (temperature,
-battery, ...) plus identifying metadata. The rest of the integration
-(coordinator, sensor/binary_sensor platforms) only ever deals with
-``ParsedDevice``/``ParsedField`` -- it has no vendor-specific knowledge.
-
-Parsers are intentionally cheap, synchronous and side-effect free: they are
-called on every advertisement seen by the Bluetooth scanner (potentially
-several times a second per device), so they must not block or make network
-calls.
+See docs/design.md for the parser architecture and why parsers must be
+cheap, synchronous and side-effect free.
 """
 
 from __future__ import annotations
@@ -56,15 +48,8 @@ class ParsedDevice:
 class DeviceParser(Protocol):
     """A vendor-specific (or generic fallback) advertisement decoder.
 
-    A parser instance is created once per physical device (per config
-    entry) and reused for the lifetime of that entry -- some underlying
-    libraries (e.g. `govee-ble`'s ``GoveeBluetoothDeviceData``) accumulate
-    state across multiple advertisement/scan-response packets, so a fresh
-    instance per update would silently break multi-packet decoding.
-    ``can_parse`` is therefore a classmethod: it only inspects the
-    advertisement shape (company IDs, service UUIDs) and must not depend on
-    any accumulated instance state, so it can cheaply be used for detection
-    *before* a persistent instance is created (e.g. during config flow).
+    One persistent instance per config entry; see docs/design.md for why
+    and for the ``can_parse``/``parse`` split.
     """
 
     #: Stable identifier, also used as the config-flow "detected type" and

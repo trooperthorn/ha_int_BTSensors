@@ -1,18 +1,6 @@
 """Per-device passive Bluetooth coordinator.
 
-Each config entry represents one physical BLE device. This mirrors the
-structure of Home Assistant core's own govee_ble/xiaomi_ble integrations:
-a ``PassiveBluetoothProcessorCoordinator`` subclass owns one persistent
-parser instance for the device's whole lifetime (created once in
-``async_setup_entry``, not per-advertisement -- some parsers, like
-`govee-ble`'s, accumulate state across multiple packets). See:
-https://developers.home-assistant.io/docs/core/bluetooth/bluetooth_fetching_data/
-
-The coordinator's ``update_method`` only calls the stored parser and
-returns a ``ParsedDevice`` -- turning that into HA entities is the job of
-each platform's own processor (sensor.py / binary_sensor.py / light.py),
-same as core's split between coordinator (fetch+decode) and processor
-(shape for a specific entity domain).
+One persistent parser instance per config entry; see docs/design.md.
 """
 
 from __future__ import annotations

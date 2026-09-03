@@ -2,7 +2,7 @@
 
 A custom Home Assistant integration that turns BLE advertisements seen by your [Bluetooth proxies](https://www.home-assistant.io/integrations/bluetooth/) into devices and entities -- for known sensor families (Govee, SwitchBot, ...) via well-tested decoder libraries, and for anything else via raw-capture diagnostic entities so it can be identified and a decoder contributed later.
 
-Minimum required Home Assistant version: 2025.10.0
+Minimum required Home Assistant version: 2026.9.0
 
 > **Before you install this for a Govee or SwitchBot device you already have working:** Home Assistant core ships its own `govee_ble` and `switchbot` integrations, actively maintained and Gold-quality-scale. This project depends on the exact same underlying libraries (`govee-ble`, `PySwitchbot`) for those vendors -- it does not reimplement their decoding. Running both core's integration and this one for the *same physical device* will create duplicate entities; either use core's integration for devices it already supports, or disable/ignore the core-discovered entry for that device if you want this integration to own it instead.
 
@@ -15,7 +15,7 @@ Most BLE sensors on the market have no HA support at all, and the tooling to ide
 * For anything unrecognized, still create a device with raw manufacturer/service-data hex and signal-strength diagnostic entities, so you (or a contributor) can correlate the bytes with the device's real-world state and write a real decoder.
 * Keep vendor-specific knowledge entirely inside `parsers/`, so the sensor/binary_sensor platforms are fully generic -- adding support for a new device family never touches the entity code.
 
-See [`docs/adding_a_parser.md`](docs/adding_a_parser.md) for the contribution workflow and [`docs/device_identification.md`](docs/device_identification.md) for how devices get identified.
+See [`docs/adding_a_parser.md`](docs/adding_a_parser.md) for the contribution workflow and [`docs/device_identification.md`](docs/device_identification.md) for how devices get identified. See [`docs/README.md`](docs/README.md) for the full documentation index.
 
 ## Supported today
 
@@ -39,7 +39,7 @@ This mirrors the structure of Home Assistant core's own BLE integrations (`govee
 ## Development
 
 ```bash
-python3.13 -m venv .venv
+python3.14 -m venv .venv
 . .venv/bin/activate
 pip install -e .[dev]
 pytest

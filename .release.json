@@ -1,0 +1,9 @@
+{
+  "tag_prefix": "v",
+  "timezone": "America/Chicago",
+  "archive": {"source": "custom_components/btsensors", "name": "btsensors.zip"},
+  "release_paths": ["custom_components/btsensors"],
+  "version_fields": [
+    {"path": "custom_components/btsensors/manifest.json", "kind": "json", "key": "version"}
+  ]
+}

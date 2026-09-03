@@ -1,13 +1,8 @@
 """Adapter around the `PySwitchbot` advertisement parser.
 
-SwitchBot devices broadcast a wide variety of payloads (meters, curtains,
-bots, contact/motion sensors, plugs, ...) all under the same manufacturer
-ID (2409) and service data UUID (fd3d). `PySwitchbot` already decodes all
-of these -- this module just flattens its output into ``ParsedField``s.
-
-Fields not covered by ``_FIELD_META`` still get an entity (as a plain,
-unitless sensor) so a new SwitchBot model firmware field never disappears
-silently; only its metadata is best-effort until added below.
+Flattens PySwitchbot's decoded output into ParsedFields. Fields missing
+from _FIELD_META still get an entity so new firmware fields never
+disappear silently; see docs/design.md.
 """
 
 from __future__ import annotations

@@ -1,19 +1,7 @@
 """Parser identification and instantiation.
 
-Two separate concerns live here:
-
-* ``identify_parser_key`` -- stateless detection, used during config flow
-  (bluetooth discovery / manual device picker) to tell the user what kind
-  of device they're adding, before any config entry exists.
-* ``create_parser`` -- builds the one persistent parser instance a config
-  entry's coordinator will reuse for its entire lifetime (see
-  ``coordinator.py``). The chosen ``parser_key`` is stored in the config
-  entry so the same parser class is reconstructed after every restart.
-
-Order matters in ``_MATCH_ORDER``: specific parsers are tried first,
-``GenericRawParser`` is the implicit catch-all fallback. Add new vendor
-parsers here -- see ``docs/adding_a_parser.md`` for the contribution
-workflow (capture -> identify -> write parser -> add tests).
+See docs/design.md for the identify/create split and match order, and
+docs/adding_a_parser.md to add a new vendor parser.
 """
 
 from __future__ import annotations
