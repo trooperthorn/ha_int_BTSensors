@@ -8,13 +8,16 @@ filing a bug report or contributing a new parser.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from homeassistant.components import bluetooth
-from homeassistant.core import HomeAssistant
 
 from .const import CONF_PARSER_KEY
-from .coordinator import BTSensorsConfigEntry
+
+if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+
+    from .coordinator import BTSensorsConfigEntry
 
 
 async def async_get_config_entry_diagnostics(

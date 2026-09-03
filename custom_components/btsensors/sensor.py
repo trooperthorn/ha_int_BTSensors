@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import override
+from typing import TYPE_CHECKING, cast, override
 
 from homeassistant.components.bluetooth.passive_update_processor import (
     PassiveBluetoothDataProcessor,
@@ -14,13 +14,23 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .coordinator import BTSensorsConfigEntry
 from .entity import build_data_update
 from .parsers.base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from datetime import date, datetime
+    from decimal import Decimal
+
+    from homeassistant.components.bluetooth.passive_update_processor import (
+        PassiveBluetoothDataUpdate,
+    )
+    from homeassistant.core import HomeAssistant
+    from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+    from homeassistant.helpers.typing import StateType
+
+    from .coordinator import BTSensorsConfigEntry
 
 _NUMERIC_TYPES = (int, float)
 
@@ -51,12 +61,12 @@ def _describe(field: ParsedField) -> SensorEntityDescription:
     )
 
 
-def _sensor_update(parsed: ParsedDevice):
+def _sensor_update(parsed: ParsedDevice) -> PassiveBluetoothDataUpdate[object]:
     return build_data_update(parsed, want_binary=False, describe=_describe)
 
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+    _hass: HomeAssistant,
     entry: BTSensorsConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
@@ -79,5 +89,8 @@ class BTSensorEntity(
 
     @property
     @override
-    def native_value(self) -> object:
-        return self.processor.entity_data.get(self.entity_key)
+    def native_value(self) -> StateType | date | datetime | Decimal:
+        return cast(
+            "StateType | date | datetime | Decimal",
+            self.processor.entity_data.get(self.entity_key),
+        )

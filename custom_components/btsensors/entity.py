@@ -5,17 +5,22 @@ See docs/design.md for why every entity key uses device_id=None.
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from typing import TYPE_CHECKING
 
 from homeassistant.components.bluetooth.passive_update_processor import (
     PassiveBluetoothDataUpdate,
     PassiveBluetoothEntityKey,
 )
 from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.entity import EntityDescription
 
 from .const import DOMAIN
-from .parsers.base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    from homeassistant.helpers.entity import EntityDescription
+
+    from .parsers.base import ParsedDevice, ParsedField
 
 
 def _device_info(parsed: ParsedDevice) -> DeviceInfo:

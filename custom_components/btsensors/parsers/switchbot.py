@@ -7,9 +7,10 @@ disappear silently; see docs/design.md.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from bleak.backends.device import BLEDevice
 from bleak.backends.scanner import AdvertisementData
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
 from switchbot import SwitchBotAdvertisement, parse_advertisement_data
 
 from ..const import (
@@ -18,6 +19,9 @@ from ..const import (
     SWITCHBOT_SERVICE_DATA_UUID,
 )
 from .base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 # key -> (display name, device_class, unit, is_binary, entity_category)
 _FIELD_META: dict[str, tuple[str, str | None, str | None, bool, str | None]] = {

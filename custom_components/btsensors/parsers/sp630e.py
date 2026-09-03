@@ -5,10 +5,13 @@ No control protocol is implemented; see docs/sp630e_protocol.md.
 
 from __future__ import annotations
 
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
+from typing import TYPE_CHECKING
 
 from ..const import PARSER_SP630E, SP630E_MANUFACTURER_ID, SP630E_SERVICE_UUID
 from .base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 
 class SP630EParser:

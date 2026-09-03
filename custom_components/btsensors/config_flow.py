@@ -15,10 +15,15 @@ from homeassistant.components.bluetooth import (
 )
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_ADDRESS
+from homeassistant.exceptions import HomeAssistantError
 import voluptuous as vol
 
 from .const import CONF_PARSER_KEY, DOMAIN
 from .parsers.registry import display_name_for, identify_parser_key
+
+_BLUETOOTH_CONFIRM_WITHOUT_DISCOVERY_MESSAGE = (
+    "async_step_bluetooth_confirm reached without a prior async_step_bluetooth call"
+)
 
 
 class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -46,8 +51,8 @@ class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
         """Confirm setup, showing what this integration detected the device as."""
-        assert self._discovery_info is not None
-        assert self._parser_key is not None
+        if self._discovery_info is None or self._parser_key is None:
+            raise HomeAssistantError(_BLUETOOTH_CONFIRM_WITHOUT_DISCOVERY_MESSAGE)
         discovery_info = self._discovery_info
         title = discovery_info.name or discovery_info.address
 
@@ -88,7 +93,7 @@ class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
 
         await bluetooth.async_request_active_scan(self.hass)
         current_addresses = self._async_current_ids(include_ignore=False)
-        for discovery_info in async_discovered_service_info(self.hass, False):
+        for discovery_info in async_discovered_service_info(self.hass, connectable=False):
             address = discovery_info.address
             if address in current_addresses or address in self._discovered_devices:
                 continue

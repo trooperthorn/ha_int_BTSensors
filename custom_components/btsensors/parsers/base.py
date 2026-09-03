@@ -7,9 +7,10 @@ cheap, synchronous and side-effect free.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol
 
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 
 @dataclass(slots=True)

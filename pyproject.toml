@@ -60,6 +60,11 @@ dev = [
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:"]
 
+[[tool.mypy.overrides]]
+# PySwitchbot ships no py.typed marker and no stub package on PyPI.
+module = "switchbot"
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 addopts = "--cov=custom_components/btsensors --cov-report=term-missing --cov-report=html"
 asyncio_mode = "auto"

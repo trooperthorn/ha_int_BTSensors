@@ -5,7 +5,7 @@ One persistent parser instance per config entry; see docs/design.md.
 
 from __future__ import annotations
 
-from logging import Logger
+from typing import TYPE_CHECKING
 
 from homeassistant.components.bluetooth import (
     BluetoothScanningMode,
@@ -15,9 +15,13 @@ from homeassistant.components.bluetooth.passive_update_processor import (
     PassiveBluetoothProcessorCoordinator,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
 
 from .parsers.base import DeviceParser, ParsedDevice
+
+if TYPE_CHECKING:
+    from logging import Logger
+
+    from homeassistant.core import HomeAssistant
 
 type BTSensorsConfigEntry = ConfigEntry[BTSensorsCoordinator]
 

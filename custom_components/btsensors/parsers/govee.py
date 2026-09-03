@@ -6,12 +6,16 @@ why decoding is not reimplemented here.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from govee_ble import GoveeBluetoothDeviceData
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
-from sensor_state_data import SensorUpdate
 
 from ..const import GOVEE_SERVICE_UUID, PARSER_GOVEE
 from .base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
+    from sensor_state_data import SensorUpdate
 
 
 class GoveeParser:

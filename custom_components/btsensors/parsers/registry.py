@@ -6,14 +6,18 @@ docs/adding_a_parser.md to add a new vendor parser.
 
 from __future__ import annotations
 
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
+from typing import TYPE_CHECKING
 
 from ..const import PARSER_GENERIC_RAW, PARSER_GOVEE, PARSER_SP630E, PARSER_SWITCHBOT
-from .base import DeviceParser, ParsedDevice
 from .generic_raw import GenericRawParser
 from .govee import GoveeParser
 from .sp630e import SP630EParser
 from .switchbot import SwitchbotParser
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
+
+    from .base import DeviceParser, ParsedDevice
 
 _PARSER_CLASSES: dict[str, type[DeviceParser]] = {
     PARSER_GOVEE: GoveeParser,

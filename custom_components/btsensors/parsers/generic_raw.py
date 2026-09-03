@@ -6,10 +6,13 @@ See docs/design.md and docs/adding_a_parser.md.
 
 from __future__ import annotations
 
-from home_assistant_bluetooth import BluetoothServiceInfoBleak
+from typing import TYPE_CHECKING
 
 from ..const import PARSER_GENERIC_RAW
 from .base import ParsedDevice, ParsedField
+
+if TYPE_CHECKING:
+    from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 
 class GenericRawParser:
@@ -17,7 +20,7 @@ class GenericRawParser:
     display_name = "Unidentified BLE device (raw capture)"
 
     @classmethod
-    def can_parse(cls, service_info: BluetoothServiceInfoBleak) -> bool:
+    def can_parse(cls, _service_info: BluetoothServiceInfoBleak) -> bool:
         return True
 
     def parse(self, service_info: BluetoothServiceInfoBleak) -> ParsedDevice:

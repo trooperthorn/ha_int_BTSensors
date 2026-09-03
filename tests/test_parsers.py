@@ -21,7 +21,7 @@ from custom_components.btsensors.parsers.registry import (
     identify_parser_key,
 )
 
-from .fixtures.advertisements import CAPTURES, to_service_info
+from .fixtures.advertisements import CAPTURES, Capture, to_service_info
 
 _EXPECTED_PARSER_KEY = {
     "switchbot_meter_1": PARSER_SWITCHBOT,
@@ -38,17 +38,17 @@ _EXPECTED_PARSER_KEY = {
 
 
 @pytest.mark.parametrize("capture", CAPTURES, ids=lambda c: c.label)
-def test_registry_dispatch(capture):
+def test_registry_dispatch(capture: Capture) -> None:
     """Every capture is routed to the parser we manually verified for it."""
     service_info = to_service_info(capture)
     assert identify_parser_key(service_info) == _EXPECTED_PARSER_KEY[capture.label]
 
 
-def _capture(label: str):
+def _capture(label: str) -> Capture:
     return next(c for c in CAPTURES if c.label == label)
 
 
-def test_govee_h5074_decodes_temperature_humidity_battery():
+def test_govee_h5074_decodes_temperature_humidity_battery() -> None:
     service_info = to_service_info(_capture("govee_h5074"))
     parser = create_parser(identify_parser_key(service_info))
     parsed = parser.parse(service_info)
@@ -61,7 +61,7 @@ def test_govee_h5074_decodes_temperature_humidity_battery():
     assert not parsed.unmapped
 
 
-def test_switchbot_meter_decodes_temperature_humidity_battery():
+def test_switchbot_meter_decodes_temperature_humidity_battery() -> None:
     service_info = to_service_info(_capture("switchbot_meter_1"))
     parser = create_parser(identify_parser_key(service_info))
     parsed = parser.parse(service_info)
@@ -72,7 +72,7 @@ def test_switchbot_meter_decodes_temperature_humidity_battery():
     assert not parsed.unmapped
 
 
-def test_switchbot_curtain_decodes_position_and_motion():
+def test_switchbot_curtain_decodes_position_and_motion() -> None:
     service_info = to_service_info(_capture("switchbot_curtain"))
     parser = create_parser(identify_parser_key(service_info))
     parsed = parser.parse(service_info)
@@ -92,7 +92,7 @@ def test_switchbot_curtain_decodes_position_and_motion():
         "unidentified_x15wk",
     ],
 )
-def test_unidentified_devices_get_raw_diagnostics(label):
+def test_unidentified_devices_get_raw_diagnostics(label: str) -> None:
     """Devices with no vendor parser still surface rssi + raw hex fields."""
     service_info = to_service_info(_capture(label))
     parser = create_parser(identify_parser_key(service_info))
@@ -103,7 +103,7 @@ def test_unidentified_devices_get_raw_diagnostics(label):
     assert any(key.startswith("raw_manufacturer_data_") for key in parsed.fields)
 
 
-def test_govee_parser_instance_is_reusable_across_updates():
+def test_govee_parser_instance_is_reusable_across_updates() -> None:
     """A persistent parser (as the coordinator uses) must decode repeatedly."""
     service_info = to_service_info(_capture("govee_h5074"))
     parser = create_parser(PARSER_GOVEE)
