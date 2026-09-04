@@ -33,3 +33,13 @@ alternative, sending best-guess command bytes based on the related
 models, was rejected because it risks corrupting a user's real hardware
 configuration or producing undefined behavior. See
 `docs/sp630e_protocol.md` for what is needed to change this.
+
+## 2026-09-04: HACS brands check ignored, copyright rule off
+
+The integration ships no brand assets and is not listed in
+`home-assistant/brands`, so the HACS action ignores that check (license only
+on feature branches, where HACS cannot read it). Ruff 0.16.5 promoted
+`CPY001` (missing copyright header) into `select = ["ALL"]`; the files carry no
+header by choice, so the rule is ignored rather than adding boilerplate to
+every module.
+
