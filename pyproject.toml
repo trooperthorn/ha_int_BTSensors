@@ -32,7 +32,7 @@ keywords = [
 ]
 requires-python = ">=3.14"
 
-dependencies = ["govee-ble==1.4.0", "PySwitchbot==2.4.1", "sensor-state-data==2.20.0"]
+dependencies = ["govee-ble==1.4.0", "PySwitchbot==2.7.0", "sensor-state-data==2.20.0"]
 
 [project.urls]
 Documentation = "https://github.com/trooperthorn/ha_int_btsensors"
