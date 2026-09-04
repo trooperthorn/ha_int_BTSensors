@@ -1,12 +1,4 @@
-# Turns release-bearing changes on protected main into a tested CalVer bump PR.
-# The Release workflow remains the sole tag and asset publisher.
-#
-# Requires the RELEASE_AUTOMATION_CLIENT_ID variable and
-# RELEASE_AUTOMATION_PRIVATE_KEY secret from an installed GitHub App scoped
-# to this repository (contents: write, pull-requests: write). Without them
-# this workflow fails at the credential check below and changes nothing;
-# run scripts/set_version.py locally on a branch and open the PR by hand
-# instead.
+# Turns release-bearing changes on protected main into a tested CalVer bump PR; see docs/operations.md.
 name: Prepare release
 
 on:
