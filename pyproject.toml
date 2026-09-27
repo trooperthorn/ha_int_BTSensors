@@ -48,7 +48,7 @@ dev = [
   "pytest-cov",
   "pytest-mock",
   "pytest-asyncio",
-  "homeassistant==2026.9.0",
+  "homeassistant==2026.9.3",
   # Transitive import of homeassistant.components.usb; see docs/operations.md.
   "aiousbwatcher==1.1.2",
   "serialx==1.10.0",
