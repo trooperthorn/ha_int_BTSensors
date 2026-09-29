@@ -41,7 +41,7 @@ CAPTURES: tuple[Capture, ...] = (
         "08:B6:1F:70:0E:9A",
     ),
     Capture(
-        "unidentified_t80",
+        "run_chicken_t80",
         "T-80",
         "00:80:E1:22:47:62",
         -93,
@@ -114,7 +114,7 @@ CAPTURES: tuple[Capture, ...] = (
         "00:01:95:CC:31:70",
     ),
     Capture(
-        "unidentified_x15wk",
+        "windows_pc_x15wk",
         "X15-WK",
         "51:6E:F0:FF:A7:64",
         -63,
