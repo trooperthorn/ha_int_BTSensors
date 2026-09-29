@@ -25,14 +25,14 @@ from .fixtures.advertisements import CAPTURES, Capture, to_service_info
 
 _EXPECTED_PARSER_KEY = {
     "switchbot_meter_1": PARSER_SWITCHBOT,
-    "unidentified_t80": PARSER_GENERIC_RAW,
+    "run_chicken_t80": PARSER_GENERIC_RAW,
     "unidentified_wsbr": PARSER_GENERIC_RAW,
     "govee_h5074": PARSER_GOVEE,
     "switchbot_curtain": PARSER_SWITCHBOT,
     "switchbot_meter_2": PARSER_SWITCHBOT,
     "switchbot_meter_3": PARSER_SWITCHBOT,
     "unidentified_nordic_tracker": PARSER_GENERIC_RAW,
-    "unidentified_x15wk": PARSER_GENERIC_RAW,
+    "windows_pc_x15wk": PARSER_GENERIC_RAW,
     "sp630e_controller": "sp630e",
 }
 
@@ -86,10 +86,10 @@ def test_switchbot_curtain_decodes_position_and_motion() -> None:
 @pytest.mark.parametrize(
     "label",
     [
-        "unidentified_t80",
+        "run_chicken_t80",
         "unidentified_wsbr",
         "unidentified_nordic_tracker",
-        "unidentified_x15wk",
+        "windows_pc_x15wk",
     ],
 )
 def test_unidentified_devices_get_raw_diagnostics(label: str) -> None:

@@ -113,7 +113,7 @@ integrations such as `govee_ble`: automatic discovery via the manifest's
 (`async_step_user`) for anything the passive scanner has seen. The manual
 picker deliberately lists every discovered device, not just
 manifest-matched ones. That is what lets a user add a device with no
-known decoder (the `T-80` or `wSBR` captures in
+known decoder (the Run-Chicken `T-80` or `wSBR` captures in
 `docs/device_identification.md`) as a raw-capture entry to start
 reverse-engineering it, per this integration's goal of probing and
 sensing every device.
