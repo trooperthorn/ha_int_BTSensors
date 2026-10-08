@@ -16,7 +16,7 @@ from homeassistant.components.bluetooth import (
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_ADDRESS
 from homeassistant.exceptions import HomeAssistantError
-import voluptuous as vol
+import probatio
 
 from .const import CONF_PARSER_KEY, DOMAIN
 from .parsers.registry import display_name_for, identify_parser_key
@@ -104,9 +104,9 @@ class BTSensorsConfigFlow(ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(
+            data_schema=probatio.Schema(
                 {
-                    vol.Required(CONF_ADDRESS): vol.In(
+                    probatio.Required(CONF_ADDRESS): probatio.In(
                         {
                             address: (
                                 f"{discovery_info.name or address}"

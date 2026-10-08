@@ -31,6 +31,6 @@
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/trooperthorn/ha_int_btsensors/issues",
   "loggers": ["govee_ble", "switchbot", "btsensors"],
-  "requirements": ["govee-ble==1.4.0", "PySwitchbot==2.4.1", "sensor-state-data==2.20.0"],
+  "requirements": ["govee-ble>=1.4.0", "PySwitchbot>=2.9.0", "sensor-state-data==2.20.0"],
   "version": "2026.09.03.1"
 }
