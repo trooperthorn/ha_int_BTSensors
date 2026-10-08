@@ -2,6 +2,20 @@
 
 Dated decisions and the alternatives that were rejected. Newest first.
 
+## 2026-10-08: Minimum Home Assistant is 2026.10.0, schemas use probatio
+
+Core 2026.10 types flow, service and websocket schemas as probatio, so the
+voluptuous schemas failed mypy (developer blog 2026-09-30, "Probatio is our
+validation engine"). The integration now imports `probatio` directly, as core
+does; runtime behavior is unchanged because core has validated with probatio
+since 2026.9. The suite runs on core 2026.10.0 and `hacs.json` follows the
+tested core. The manifest declares `govee-ble` and `PySwitchbot` as minimum
+versions, because core depends on both and hassfest rejects an exact pin of a
+core dependency; `PySwitchbot==2.4.1` also conflicted with core's 2.9.0. The
+test environment pins core's versions (`govee-ble` 1.4.0, `PySwitchbot` 2.9.0),
+so the newer `govee-ble` 1.5.1 waits until core adopts it. Rejected: aliasing
+`probatio as vol`, which core's lint config bans.
+
 ## 2026-09-03: quality_scale.yaml honesty policy
 
 `custom_components/btsensors/quality_scale.yaml` is kept as an honest

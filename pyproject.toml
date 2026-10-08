@@ -42,16 +42,16 @@ Repository = "https://github.com/trooperthorn/ha_int_btsensors"
 
 [project.optional-dependencies]
 dev = [
-  "mypy==2.3.1",
-  "ruff==0.16.9",
+  "mypy==2.4.0",
+  "ruff==0.16.10",
   "pytest>=7.0.0",
   "pytest-cov",
   "pytest-mock",
   "pytest-asyncio",
-  "homeassistant==2026.9.3",
+  "homeassistant==2026.10.0",
   # Transitive import of homeassistant.components.usb; see docs/operations.md.
   "aiousbwatcher==1.1.2",
-  "serialx==1.10.0",
+  "serialx==1.11.0",
   # Don't pin versions below, they will follow HA's versions
   "homeassistant-stubs",
   "pytest-homeassistant-custom-component",
