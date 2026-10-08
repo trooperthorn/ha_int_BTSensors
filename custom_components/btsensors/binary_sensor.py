@@ -73,4 +73,5 @@ class BTBinarySensorEntity(
     @property
     @override
     def is_on(self) -> bool | None:
-        return self.processor.entity_data.get(self.entity_key)
+        value = self.processor.entity_data.get(self.entity_key)
+        return None if value is None else bool(value)
