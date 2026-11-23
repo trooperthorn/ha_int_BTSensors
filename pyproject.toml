@@ -48,13 +48,14 @@ dev = [
   "pytest-cov",
   "pytest-mock",
   "pytest-asyncio",
-  "homeassistant==2026.10.4",
-  # Transitive import of homeassistant.components.usb; see docs/operations.md.
-  "aiousbwatcher==1.1.2",
-  "serialx==1.15.1",
+  "homeassistant==2026.11.1",
+  # Official harness published from home-assistant/core. Each release pins
+  # the exact matching homeassistant, so this moves together with the core pin
+  # above. The bluetooth extra supplies the component-level requirements that
+  # importing homeassistant.components.bluetooth needs; see docs/operations.md.
+  "pytest-homeassistant[bluetooth]==2026.11.1",
   # Don't pin versions below, they will follow HA's versions
   "homeassistant-stubs",
-  "pytest-homeassistant-custom-component",
 ]
 
 [tool.coverage.report]
@@ -66,9 +67,11 @@ module = "switchbot"
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = "--cov=custom_components/btsensors --cov-report=term-missing --cov-report=html"
+# -p no:respx lets Home Assistant install its httpx alias before respx is imported.
+addopts = "-p no:respx --cov=custom_components/btsensors --cov-report=term-missing --cov-report=html"
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
+pythonpath = ["."]
 testpaths = ["tests"]
 
 [tool.ruff]
