@@ -2,6 +2,22 @@
 
 Dated decisions and the alternatives that were rejected. Newest first.
 
+## 2026-11-23: Test harness is pytest-homeassistant, pinned with core
+
+`pytest-homeassistant-custom-component` stopped at 0.13.375 (core 2026.10.4)
+and its README points to `pytest-homeassistant`, which home-assistant/core now
+publishes itself. Core 2026.11 aliases httpx to httpx2 at import, which the old
+harness cannot load, so the suite moved to `pytest-homeassistant[bluetooth]`
+2026.11.1 alongside `homeassistant==2026.11.1`. The harness pins the exact
+core version, so the two are pinned to the same version and bumped together.
+The `bluetooth` extra replaces the hand-kept `aiousbwatcher` and `serialx`
+pins and adds `aiohasupervisor`, which core 2026.11 imports through
+`components.usb`; see `docs/operations.md`. Pytest config follows the harness
+README (`-p no:respx`, `pythonpath`). The test count is unchanged at 18.
+Rejected: staying on core 2026.10 with the old harness, which has no future
+releases; keeping the separate USB pins, which would conflict with the extra's
+exact pins on the next Dependabot bump.
+
 ## 2026-10-08: Minimum Home Assistant is 2026.10.0, schemas use probatio
 
 Core 2026.10 types flow, service and websocket schemas as probatio, so the
